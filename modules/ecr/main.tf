@@ -6,6 +6,7 @@ resource "aws_ecr_repository" "this" {
   }
 }
 
+# 最新N個までのイメージを残し、それより古いものは自動削除
 resource "aws_ecr_lifecycle_policy" "this" {
   policy = jsonencode(
     {
