@@ -61,6 +61,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_ssm" {
   policy_arn = aws_iam_policy.ssm.arn
 }
 
+# ECSコンテナの中に入ることができるロール
 resource "aws_iam_role" "ecs_task" {
   name = "${local.name_prefix}-${local.service_name}-ecs-task"
 
