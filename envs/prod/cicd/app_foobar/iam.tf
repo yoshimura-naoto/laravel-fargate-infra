@@ -41,7 +41,7 @@ resource "aws_iam_role_policy_attachment" "role_deployer_policy_ecr_power_user" 
   policy_arn = data.aws_iam_policy.ecr_power_user.arn
 }
 
-# S3のtfstateを参照する権限
+# S3を参照する権限
 resource "aws_iam_role_policy" "s3" {
   name = "s3"
   role = aws_iam_role.deployer.id
@@ -56,6 +56,13 @@ resource "aws_iam_role_policy" "s3" {
             "s3:GetObject"
           ],
           "Resource" : "arn:aws:s3:::naotoyoshimura-tfstate/${local.system_name}/${local.env_name}/cicd/app_${local.service_name}_*.tfstate"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "s3:PutObject"
+          ],
+          "Resource" : "${data.aws_s3_bucket.env_file.arn}/*"
         }
       ]
     }
